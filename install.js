@@ -6,10 +6,18 @@
 
 const os = require('os');
 const fs = require('fs');
-const request = require('request');;
+const path = require('path');
+const rmdir = require('rmdir');
+const zlib = require('zlib');
+const tar = require('tar-fs');
+const request = require('request');
 const ProgressBar = require('progress');
 
-request
+const JRE_PATH = path.join(process.cwd(), 'jre');
+
+rmdir(JRE_PATH);
+
+req = request
   .get({
     url: 'https://download.oracle.com/otn-pub/java/jdk/8u102-b14/jre-8u102-macosx-x64.tar.gz',
     rejectUnauthorized: false,
@@ -19,14 +27,15 @@ request
   })
   .on('response', res => {
     var len = parseInt(res.headers['content-length'], 10);
-    var bar = new ProgressBar('  downloading [:bar] :percent :etas', {
+    var bar = new ProgressBar('  downloading and preparing JRE [:bar] :percent :etas', {
       complete: '=',
       incomplete: ' ',
-      width: 40,
+      width: 80,
       total: len
     });
-    res.on('data', chunk => bar.tick(chunk.length));
-    res.on('end', () => console.log('\n'));
+    res.on('data', chunk => bar.tick(chunk.length))
   })
   .on('error', err => console.log(`problem with request: ${err.message}`))
-  .pipe(fs.createWriteStream('jre.tar.gz'));
+  .on('end', () => console.log('\n'))
+  .pipe(zlib.createUnzip())
+  .pipe(tar.extract(JRE_PATH));
