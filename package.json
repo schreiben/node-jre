@@ -1,0 +1,37 @@
+{
+  "name": "node-jre",
+  "version": "0.1.0",
+  "description": "Embeds the Java Runtime Environment into a Node.js app",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "clean": "node clean.js",
+    "install": "node install.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schreiben/node-jre.git"
+  },
+  "keywords": [
+    "node",
+    "jre",
+    "java",
+    "runtime",
+    "environment",
+    "embed",
+    "portable",
+    "download"
+  ],
+  "author": "Tilman Kamp",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/schreiben/node-jre/issues"
+  },
+  "homepage": "https://github.com/schreiben/node-jre#readme",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "os": "^0.1.1",
+    "progress": "^1.1.8",
+    "request": "^2.75.0"
+  }
+}
