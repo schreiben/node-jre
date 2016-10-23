@@ -21,40 +21,4 @@
  * SOFTWARE.
  */
 
-const os = require('os');
-const fs = require('fs');
-const path = require('path');
-const rmdir = require('rmdir');
-const zlib = require('zlib');
-const tar = require('tar-fs');
-const process = require('process');
-const request = require('request');
-const ProgressBar = require('progress');
-const jre = require('.');
-
-rmdir(jre.jreDir());
-
-req = request
-  .get({
-    url: jre.url(),
-    rejectUnauthorized: false,
-    headers: {
-      'Cookie': 'gpw_e24=http://www.oracle.com/; oraclelicense=accept-securebackup-cookie'
-    }
-  })
-  .on('response', res => {
-    var len = parseInt(res.headers['content-length'], 10);
-    var bar = new ProgressBar('  downloading and preparing JRE [:bar] :percent :etas', {
-      complete: '=',
-      incomplete: ' ',
-      width: 80,
-      total: len
-    });
-    res.on('data', chunk => bar.tick(chunk.length))
-  })
-  .on('error', err => console.log(`problem with request: ${err.message}`))
-  .on('end', () => {
-    console.log(jre.smoketest());
-  })
-  .pipe(zlib.createUnzip())
-  .pipe(tar.extract(jre.jreDir()));
+require('.').install();
