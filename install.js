@@ -21,4 +21,5 @@
  * SOFTWARE.
  */
 
-require('.').install();
+const process = require('process');
+require('.').install(err => process.exit(err ? 1 : 0));

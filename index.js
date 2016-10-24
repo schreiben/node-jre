@@ -93,9 +93,9 @@
       { encoding: 'utf8' }
     ).trim() === 'No smoke!';
 
-  const install = exports.install = () => {
+  const install = exports.install = callback => {
+    callback = callback || () => {};
     rmdir(jreDir());
-
     request
       .get({
         url: url(),
@@ -112,12 +112,13 @@
           width: 80,
           total: len
         });
-        res.on('data', chunk => bar.tick(chunk.length))
+        res.on('data', chunk => bar.tick(chunk.length));
       })
-      .on('error', err => console.log(`problem with request: ${err.message}`))
-      .on('end', () => {
-        console.log(smoketest());
+      .on('error', err => {
+        console.log(`problem with request: ${err.message}`);
+        callback(err);
       })
+      .on('end', () => { if (smoketest()) callback(); else callback("Smoketest failed."); })
       .pipe(zlib.createUnzip())
       .pipe(tar.extract(jreDir()));
   };
