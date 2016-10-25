@@ -21,5 +21,4 @@
  * SOFTWARE.
  */
 
-const process = require('process');
-process.exit(require('.').smoketest() ? 0 : 1);
+require('process').exit(require('.').smoketest() ? 0 : 1);

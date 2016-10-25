@@ -82,16 +82,30 @@
     return path.join.apply(path, d);
   };
 
+  const getArgs = exports.getArgs = (classpath, classname, args) => {
+    args = args.slice();
+    args.unshift(classname);
+    args.unshift(classpath.join(platform() === 'windows' ? ';' : ':'));
+    args.unshift('-cp');
+    return args;
+  };
+
+  const spawn = exports.spawn =
+    (classpath, classname, args, options) =>
+      child_process.spawn(driver(), getArgs(classpath, classname, args), options);
+
+  const spawnSync = exports.spawnSync =
+    (classpath, classname, args, options) =>
+      child_process.spawnSync(driver(), getArgs(classpath, classname, args), options);
+
+  const smoketest = exports.smoketest = () =>
+    spawnSync(['resources'], 'Smoketest', [], { encoding: 'utf8' })
+    .stdout.trim() === 'No smoke!';
+
   const url = exports.url = () =>
     'https://download.oracle.com/otn-pub/java/jdk/' +
     version + '-b' + build_number +
     '/jre-' + version + '-' + platform() + '-' + arch() + '.tar.gz';
-
-  const smoketest = exports.smoketest = () =>
-    child_process.execSync(
-      driver() + ' -cp resources Smoketest',
-      { encoding: 'utf8' }
-    ).trim() === 'No smoke!';
 
   const install = exports.install = callback => {
     callback = callback || () => {};
