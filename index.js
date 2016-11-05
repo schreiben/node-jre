@@ -70,7 +70,7 @@
   const build_number = 14;
   const version = major_version + 'u' + update_number;
 
-  const jreDir = exports.jreDir = () => path.join(path.resolve('.'), 'jre');
+  const jreDir = exports.jreDir = () => path.join(__dirname, 'jre');
 
   const driver = exports.driver = () => {
     var jreDirs = getDirectories(jreDir());
