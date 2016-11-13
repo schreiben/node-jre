@@ -37,8 +37,8 @@
   const child_process = require('child_process');
 
   const major_version = 8;
-  const update_number = 102;
-  const build_number = 14;
+  const update_number = 112;
+  const build_number = 15;
   const version = major_version + 'u' + update_number;
 
   const jreDir = exports.jreDir = () => path.join(__dirname, 'jre');
@@ -114,7 +114,9 @@
       .get({
         url: url(),
         rejectUnauthorized: false,
+        agent: false,
         headers: {
+          connection: 'keep-alive',
           'Cookie': 'gpw_e24=http://www.oracle.com/; oraclelicense=accept-securebackup-cookie'
         }
       })
