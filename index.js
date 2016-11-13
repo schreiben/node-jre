@@ -36,6 +36,13 @@
   const ProgressBar = require('progress');
   const child_process = require('child_process');
 
+  const major_version = 8;
+  const update_number = 102;
+  const build_number = 14;
+  const version = major_version + 'u' + update_number;
+
+  const jreDir = exports.jreDir = () => path.join(__dirname, 'jre');
+
   const fail = reason => {
     console.error(reason);
     process.exit(1);
@@ -64,13 +71,6 @@
   const getDirectories = dirPath => fs.readdirSync(dirPath).filter(
     file => fs.statSync(path.join(dirPath, file)).isDirectory()
   );
-
-  const major_version = 8;
-  const update_number = 102;
-  const build_number = 14;
-  const version = major_version + 'u' + update_number;
-
-  const jreDir = exports.jreDir = () => path.join(__dirname, 'jre');
 
   const driver = exports.driver = () => {
     var jreDirs = getDirectories(jreDir());
@@ -108,7 +108,7 @@
     '/jre-' + version + '-' + platform() + '-' + arch() + '.tar.gz';
 
   const install = exports.install = callback => {
-    callback = callback || () => {};
+    callback = callback || (() => {});
     rmdir(jreDir());
     request
       .get({
