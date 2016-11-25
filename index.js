@@ -83,7 +83,8 @@
   };
 
   const getArgs = exports.getArgs = (classpath, classname, args) => {
-    args = args.slice();
+    args = (args || []).slice();
+    classpath = classpath || [];
     args.unshift(classname);
     args.unshift(classpath.join(platform() === 'windows' ? ';' : ':'));
     args.unshift('-cp');
