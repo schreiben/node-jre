@@ -37,8 +37,9 @@
   const child_process = require('child_process');
 
   const major_version = 8;
-  const update_number = 112;
-  const build_number = 15;
+  const update_number = 131;
+  const build_number = 11;
+  const hash = 'd54c1d3a095b4ff2b6607d096fa80163';
   const version = major_version + 'u' + update_number;
 
   const jreDir = exports.jreDir = () => path.join(__dirname, 'jre');
@@ -105,10 +106,12 @@
 
   const url = exports.url = () =>
     'https://download.oracle.com/otn-pub/java/jdk/' +
-    version + '-b' + build_number +
+    version + '-b' + build_number + '/' + hash + 
     '/jre-' + version + '-' + platform() + '-' + arch() + '.tar.gz';
 
   const install = exports.install = callback => {
+    var urlStr = url();
+    console.log("Downloading from: ", urlStr);
     callback = callback || (() => {});
     rmdir(jreDir());
     request
@@ -135,9 +138,9 @@
         console.log(`problem with request: ${err.message}`);
         callback(err);
       })
-      .on('end', () => { if (smoketest()) callback(); else callback("Smoketest failed."); })
-      .pipe(zlib.createUnzip())
-      .pipe(tar.extract(jreDir()));
+     .on('end', () => { if (smoketest()) callback(); else callback("Smoketest failed."); })
+     .pipe(zlib.createUnzip())
+     .pipe(tar.extract(jreDir()));
   };
 
 })();
