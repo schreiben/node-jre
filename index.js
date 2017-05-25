@@ -138,9 +138,9 @@
         console.log(`problem with request: ${err.message}`);
         callback(err);
       })
-     .on('end', () => { if (smoketest()) callback(); else callback("Smoketest failed."); })
-     .pipe(zlib.createUnzip())
-     .pipe(tar.extract(jreDir()));
+      .on('end', () => { if (smoketest()) callback(); else callback("Smoketest failed."); })
+      .pipe(zlib.createUnzip())
+      .pipe(tar.extract(jreDir()));
   };
 
 })();
