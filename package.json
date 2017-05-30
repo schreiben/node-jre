@@ -1,6 +1,6 @@
 {
   "name": "node-jre",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Embeds the Java Runtime Environment into a Node.js app",
   "main": "index.js",
   "scripts": {
