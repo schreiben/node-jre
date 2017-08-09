@@ -105,7 +105,7 @@
     .stdout.trim() === 'No smoke!';
 
   const url = exports.url = () =>
-    'https://download.oracle.com/otn-pub/java/jdk/' +
+    'http://download.oracle.com/otn-pub/java/jdk/' +
     version + '-b' + build_number + '/' + hash + 
     '/jre-' + version + '-' + platform() + '-' + arch() + '.tar.gz';
 
