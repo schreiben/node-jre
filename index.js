@@ -36,9 +36,9 @@
   const ProgressBar = require('progress');
   const child_process = require('child_process');
 
-  const major_version = 8;
-  const update_number = 144;
-  const build_number = 01;
+  const major_version = '8';
+  const update_number = '144';
+  const build_number = '01';
   const hash = '090f390dda5b47b9b721c7dfaa008135';
   const version = major_version + 'u' + update_number;
 
