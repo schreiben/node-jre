@@ -138,7 +138,13 @@
         console.log(`problem with request: ${err.message}`);
         callback(err);
       })
-      .on('end', () => { if (smoketest()) callback(); else callback("Smoketest failed."); })
+      .on('end', () => {
+        try{
+          if (smoketest()) callback(); else callback("Smoketest failed.");
+        }catch(err){
+          callback(err);
+        }
+      })
       .pipe(zlib.createUnzip())
       .pipe(tar.extract(jreDir()));
   };
