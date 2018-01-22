@@ -42,7 +42,14 @@
   const hash = 'd54c1d3a095b4ff2b6607d096fa80163';
   const version = major_version + 'u' + update_number;
 
-  const jreDir = exports.jreDir = () => path.join(__dirname, 'jre');
+  var _jreDir;
+  const jreDir = exports.jreDir = () => {
+    if(_jreDir){
+      return _jreDir;
+    }
+    return path.join(__dirname, 'jre');
+  };
+  const setJreDir = exports.setJreDir = dir => _jreDir = dir;
 
   const fail = reason => {
     console.error(reason);
@@ -106,7 +113,7 @@
 
   const url = exports.url = () =>
     'https://download.oracle.com/otn-pub/java/jdk/' +
-    version + '-b' + build_number + '/' + hash + 
+    version + '-b' + build_number + '/' + hash +
     '/jre-' + version + '-' + platform() + '-' + arch() + '.tar.gz';
 
   const install = exports.install = callback => {
