@@ -57,6 +57,7 @@
       fail('unsupported architecture: ' + _arch);
   }
   const arch = exports.arch = () => _arch;
+  const setArch = exports.setArch = newArch => _arch = newArch;
 
   var _platform = os.platform();
   var _driver;
