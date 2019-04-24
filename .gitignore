@@ -20,3 +20,6 @@ jspm_packages
 
 # Other ignores
 .DS_Store
+
+# Intellij IDEA
+/.idea

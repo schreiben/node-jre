@@ -28,7 +28,7 @@
   const os = require('os');
   const fs = require('fs');
   const path = require('path');
-  const rmdir = require('rmdir');
+  const rimraf = require('rimraf');
   const zlib = require('zlib');
   const tar = require('tar-fs');
   const process = require('process');
@@ -106,14 +106,14 @@
 
   const url = exports.url = () =>
     'https://download.oracle.com/otn-pub/java/jdk/' +
-    version + '-b' + build_number + '/' + hash + 
+    version + '-b' + build_number + '/' + hash +
     '/jre-' + version + '-' + platform() + '-' + arch() + '.tar.gz';
 
   const install = exports.install = callback => {
     var urlStr = url();
     console.log("Downloading from: ", urlStr);
     callback = callback || (() => {});
-    rmdir(jreDir());
+    rimraf.sync(jreDir());
     request
       .get({
         url: url(),
