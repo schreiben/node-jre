@@ -1,8 +1,8 @@
-# node-jre
 
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/schreiben/node-jre?svg=true)](https://ci.appveyor.com/project/tilmankamp/node-jre)
-[![Build Status](https://travis-ci.org/schreiben/node-jre.svg?branch=master)](https://travis-ci.org/schreiben/node-jre)
-[![npm version](https://badge.fury.io/js/node-jre.svg)](https://www.npmjs.com/package/node-jre)
+> **WARNING**: This repository is not maintained anymore.
+> Please use a more up to date solution like [njre](https://github.com/raftario/njre) instead.
+
+# node-jre
 
 This module will embed the Java Runtime Environment (JRE) into a Node.js app.
 It will download the platform specific JRE at installation time.
